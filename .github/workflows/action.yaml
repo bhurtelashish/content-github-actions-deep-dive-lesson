@@ -28,6 +28,22 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: zipped-bundle
-          path: ${{ github.sha }}.zip      
-        
+          path: ${{ github.sha }}.zip
+          
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: create release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ GITHUB.RUN_NUMBER }}
+      with:
+        tag_name: ${{ github.run_number }}
+        release_name: Release from ${{ github.run_number }}
+        bodu: New release for ${{ github.sha }}. Releasen notes on the documentation site
+        draft: false
+        prerelease: false
+      
+          
+          
 
